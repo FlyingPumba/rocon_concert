@@ -1,0 +1,184 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Solution &mdash; Solution Configuration 0.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Solution Configuration 0.0.0 documentation" href="index.html" />
+    <link rel="next" title="Rocon Service" href="service.html" />
+    <link rel="prev" title="Welcome to Solution Configuration’s documentation!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="service.html" title="Rocon Service"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to Solution Configuration’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Solution Configuration 0.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="solution">
+<h1>Solution<a class="headerlink" href="#solution" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>TODO</p>
+</div>
+<div class="section" id="solution-bring-up">
+<h2>Solution Bring-up<a class="headerlink" href="#solution-bring-up" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>roslaunch concert_master concert_master.launch --screen
+</pre></div>
+</div>
+</div>
+<div class="section" id="preruntime-solution-configuration">
+<h2>Preruntime Solution Configuration<a class="headerlink" href="#preruntime-solution-configuration" title="Permalink to this headline">¶</a></h2>
+<p><em>concert_master.launch</em> includes configurable arguements</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- ******************************* Arguments ******************************* --&gt;</span>
+<span class="c">&lt;!-- Concert --&gt;</span>
+<span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;concert_name&quot;</span> <span class="na">default=</span><span class="s">&quot;Pirate Concert&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;concert_icon&quot;</span> <span class="na">default=</span><span class="s">&quot;concert_master/rocon_text.png&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;concert_description&quot;</span> <span class="na">default=</span><span class="s">&quot;Pirates in concert.&quot;</span><span class="nt">/&gt;</span>
+<span class="c">&lt;!-- Gateways --&gt;</span>
+<span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;hub_port&quot;</span> <span class="na">default=</span><span class="s">&quot;6380&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;hub_uri&quot;</span> <span class="na">default=</span><span class="s">&quot;http://localhost:6380&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;gateway_watch_loop_period&quot;</span> <span class="na">default=</span><span class="s">&quot;2&quot;</span><span class="nt">/&gt;</span> <span class="c">&lt;!-- Polling period for multimaster advertising/flipping --&gt;</span>
+<span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;gateway_disable_uuids&quot;</span> <span class="na">default=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span> <span class="c">&lt;!-- manage unique naming of multiple gateways yourself --&gt;</span>
+<span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;gateway_network_interface&quot;</span> <span class="na">default=</span><span class="s">&quot;$(optenv GATEWAY_NETWORK_INTERFACE)&quot;</span><span class="nt">/&gt;</span>/&gt;  <span class="c">&lt;!-- If you have multiple n</span>
+<span class="c">&lt;!-- Conductor --&gt;</span>
+<span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;conductor_auto_invite&quot;</span> <span class="na">default=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;conductor_local_clients_only&quot;</span> <span class="na">default=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+<span class="c">&lt;!-- Service Manager --&gt;</span>
+<span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;services&quot;</span> <span class="na">default=</span><span class="s">&quot;&quot;</span><span class="nt">/&gt;</span> <span class="c">&lt;!-- service list resource location. e.g. concert_tutorial/tutorial.services --&gt;</span>
+<span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;auto_enable_services&quot;</span> <span class="na">default=</span><span class="s">&quot;&quot;</span><span class="nt">/&gt;</span> <span class="c">&lt;!-- autoenable services, e.g. true/false --&gt;</span>
+<span class="c">&lt;!-- Scheduler --&gt;</span>
+<span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;scheduler_type&quot;</span> <span class="na">default=</span><span class="s">&quot;demo&quot;</span><span class="nt">/&gt;</span>  <span class="c">&lt;!-- options are demo, compatibility_tree --&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="solution-service-configuration">
+<h2>Solution Service Configuration<a class="headerlink" href="#solution-service-configuration" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">&lt;arg name=&quot;services&quot; default=&quot;&quot;/&gt; &lt;!-- e.g) concert_tutorial/tutorial.services --&gt;</span>
+</pre></div>
+</div>
+<p><em>services</em> argument takes a resource location to specify list of services that serves solution. It includes name of services as well as parameters to override the default service parameters</p>
+<p><strong>Note that uuid is not overridable parameter</strong></p>
+<div class="section" id="example">
+<h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
+<p><strong>concert_tutorial/tutorial.serivces</strong></p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">resource</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rocon_service_turtlesim/turtlesim</span>
+  <span class="l-Scalar-Plain">override</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">My &#39;TurtleSim&#39;</span>
+    <span class="l-Scalar-Plain">priority</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">15</span>
+    <span class="l-Scalar-Plain">turtle_color</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">green</span>
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">resource</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rocon_service_admin/admin</span>
+  <span class="l-Scalar-Plain">override</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">description</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">admin is useful</span>
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">turtle_concert/turtle_pond</span>
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">chatter_concert/chatter</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Solution</a><ul>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#solution-bring-up">Solution Bring-up</a></li>
+<li><a class="reference internal" href="#preruntime-solution-configuration">Preruntime Solution Configuration</a></li>
+<li><a class="reference internal" href="#solution-service-configuration">Solution Service Configuration</a><ul>
+<li><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to Solution Configuration&#8217;s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="service.html"
+                        title="next chapter">Rocon Service</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/solution.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="service.html" title="Rocon Service"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to Solution Configuration’s documentation!"
+             >previous</a> |</li>
+        <li><a href="index.html">Solution Configuration 0.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Jihoon Lee.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

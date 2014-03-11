@@ -1,0 +1,206 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Changelog for package concert_conductor &mdash; Solution Configuration 0.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Solution Configuration 0.0.0 documentation" href="index.html" />
+    <link rel="prev" title="Rocon Service" href="service.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="service.html" title="Rocon Service"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Solution Configuration 0.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="changelog-for-package-concert-conductor">
+<h1>Changelog for package concert_conductor<a class="headerlink" href="#changelog-for-package-concert-conductor" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>0.5.5 (2013-08-30)<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="id2">
+<h2>0.5.4 (2013-07-19)<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="id3">
+<h2>0.5.3 (2013-07-17)<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>No params dir to install</li>
+<li>auto_invite is configurable with argument</li>
+<li>bugfix renamed app list variable from pairing merge.</li>
+<li>bugfix some holes in the human friendly naming, make sure we go back and plug missing holes.</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h2>0.5.2 (2013-06-10)<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>0.5.1</li>
+<li>install launch directory in conductor</li>
+<li>0.5.0</li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h2>0.5.1 (2013-05-27 11:46)<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>install launch directory in conductor</li>
+</ul>
+</div>
+<div class="section" id="id6">
+<h2>0.5.0 (2013-05-27 10:48)<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>update for non-gateway clients.</li>
+<li>concert master launchers moved to conductor.</li>
+<li>local concert name fixes.</li>
+<li>trivial debugging comments</li>
+<li>concert conductor send invite with local name</li>
+<li>handle uuid&#8217;s by using a human consumable name, also remove the leading slash that was in the human readable names before.</li>
+<li>0.4.0</li>
+<li>gateway info now a msg.</li>
+</ul>
+</div>
+<div class="section" id="id7">
+<h2>0.3.0 (2013-02-05)<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Merge branch &#8216;groovy-devel&#8217; of <a class="reference external" href="https://github.com/robotics-in-concert/rocon_concert">https://github.com/robotics-in-concert/rocon_concert</a> into groovy-devel</li>
+<li>updating jihoon e-mail</li>
+<li>taking the concert client out of the loop</li>
+<li>scanning for clients on the gateways.</li>
+<li>concert status -&gt; app manager status, part of first redesign.</li>
+</ul>
+</div>
+<div class="section" id="id8">
+<h2>0.2.0 (2013-02-01)<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>pulling list apps, also correcting advertising behaviour in the client.</li>
+<li>cleaning, don&#8217;t use unnecessary params.</li>
+<li>fleshed put platform info retrieval.</li>
+<li>platform info to rocon_app_manager_msgs</li>
+<li>rocon_orchestration-&gt;rocon_concert</li>
+<li>refactoring app-&gt;rapp.</li>
+<li>catkinization fixes, but still not yet working.</li>
+<li>catkinized.</li>
+<li>no more solution handling.</li>
+<li>started adding a stop, but aborted for now. also bugfixed in place with
+a wait for service.</li>
+<li>start solution, also pass on remappings.</li>
+<li>orchestration plugged in.</li>
+<li>reinstituted app list in concert client information.</li>
+<li>Don&#8217;t latch yet till rosbridge fixes itself.</li>
+<li>less spammy concert client list updates.</li>
+<li>safely check platform info services.</li>
+<li>publishing concert client information.</li>
+<li>rewire conductor to send the concert name in the invitation, lost when auto-invite service was cancelled.</li>
+<li>revert to old topic name.</li>
+<li>minor fixes.</li>
+<li>minor fixes.</li>
+<li>handle bad clients.</li>
+<li>update licenses.</li>
+<li>importing from rocon_app_platform.</li>
+</ul>
+</div>
+<div class="section" id="id9">
+<h2>0.1.1 (2012-12-12)<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="id10">
+<h2>0.1.0 (2012-04-02)<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Changelog for package concert_conductor</a><ul>
+<li><a class="reference internal" href="#id1">0.5.5 (2013-08-30)</a></li>
+<li><a class="reference internal" href="#id2">0.5.4 (2013-07-19)</a></li>
+<li><a class="reference internal" href="#id3">0.5.3 (2013-07-17)</a></li>
+<li><a class="reference internal" href="#id4">0.5.2 (2013-06-10)</a></li>
+<li><a class="reference internal" href="#id5">0.5.1 (2013-05-27 11:46)</a></li>
+<li><a class="reference internal" href="#id6">0.5.0 (2013-05-27 10:48)</a></li>
+<li><a class="reference internal" href="#id7">0.3.0 (2013-02-05)</a></li>
+<li><a class="reference internal" href="#id8">0.2.0 (2013-02-01)</a></li>
+<li><a class="reference internal" href="#id9">0.1.1 (2012-12-12)</a></li>
+<li><a class="reference internal" href="#id10">0.1.0 (2012-04-02)</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="service.html"
+                        title="previous chapter">Rocon Service</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/CHANGELOG.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="service.html" title="Rocon Service"
+             >previous</a> |</li>
+        <li><a href="index.html">Solution Configuration 0.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Jihoon Lee.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
