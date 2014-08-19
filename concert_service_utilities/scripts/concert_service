@@ -1,0 +1,10 @@
+#!/usr/bin/env python
+#
+# License: BSD
+#   https://raw.github.com/robotics-in-concert/rocon_concert/license/LICENSE
+#
+##############################################################################
+
+import concert_service_utilities.concert_service_cmd
+
+concert_service_utilities.concert_service_cmd.main()
