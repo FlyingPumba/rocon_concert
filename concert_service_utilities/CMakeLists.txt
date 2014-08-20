@@ -28,6 +28,7 @@ endif()
 
 install(
     PROGRAMS 
+        scripts/concert_service
         scripts/concert_service_info
     DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
     )
