@@ -278,8 +278,9 @@ class CompatibilityTreeScheduler(object):
                                 reallocated_clients[leaf.msg.platform_info.uri] = old_request_id
                                 rospy.loginfo("Scheduler :   pre-empted and reallocated [%s]" % leaf.name)
                             else:
+                                rospy.loginfo("Scheduler :   allocating [%s]" % leaf.name)
                                 leaf.allocate(request_id, request.priority, branch.limb)
-                                rospy.loginfo("Scheduler :   allocated [%s]" % leaf.name)
+                                rospy.loginfo("Scheduler :   allocated  [%s]" % leaf.name)
                         except FailedToAllocateException as e:
                             rospy.logwarn("Scheduler :   failed to (re)allocate [%s][%s]" % (leaf.name, str(e)))
                             failed_to_allocate = True

@@ -136,6 +136,8 @@ class ResourcePimp(object):
             elif request.msg.status == scheduler_msgs.Request.CLOSED:
                 self.pending_requests.remove(request_id)
                 self.allocated_requests.remove(request_id)
+            else:
+                self.logwarn("Request ID %s : %s"%(str(request_id), str(request)))
 
     def cancel_all_requests(self):
         '''
@@ -180,7 +182,7 @@ class ResourcePimp(object):
 
     def send_releasing_request(self, uri):
         if uri in self.allocated_requests.keys():
-            self.loginfo("released teleopable robot [%s][%s]" % (uri, self.allocated_requests[uri].hex))
+            self.loginfo("released resource [%s][%s]" % (uri, self.allocated_requests[uri].hex))
             self.requester.rset[self.allocated_requests[uri]].cancel()
             self.requester.send_requests()
             del self.allocated_requests[uri]

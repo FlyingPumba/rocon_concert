@@ -13,6 +13,8 @@ python class for convenient handling inside a scheduler node.
 # Imports
 ##############################################################################
 
+import threading
+
 import rospy
 import rocon_app_manager_msgs.srv as rapp_manager_srvs
 import scheduler_msgs.msg as scheduler_msgs
@@ -42,6 +44,8 @@ class ConcertClient(object):
             '_request_id',   # id (uuid hex string) of the request it is allocated to
             'allocated_priority',  # priority (int) of the request it is allocated to
             '_resource',     # scheduler_msgs.Resource it fulfills
+            '_start_rapp_thread',
+            '_start_rapp_thread_return',
         ]
 
     ##########################################################################
@@ -175,15 +179,24 @@ class ConcertClient(object):
     def _start(self, gateway_name, resource):
         if self._resource == None:
             raise FailedToStartRappsException("this client hasn't been allocated yet [%s]" % self.name)
+        self._start_rapp_thread = threading.Thread(target=self._start_rapp, args=(gateway_name, resource))
+        self._start_rapp_thread.start()
+        self._start_rapp_thread.join()
+    
+        if self._start_rapp_thread_return:
+            raise self._start_rapp_thread_return
+
+    def _start_rapp(self, gateway_name, resource):
         start_rapp = rospy.ServiceProxy('/' + gateway_name + '/start_rapp', rapp_manager_srvs.StartRapp)
         request = rapp_manager_srvs.StartRappRequest()
         request.name = resource.rapp
         request.remappings = resource.remappings
         request.parameters = resource.parameters
+        self._start_rapp_thread_return= None
         try:
             start_rapp(request)
         except (rospy.service.ServiceException, rospy.exceptions.ROSInterruptException) as e:  # Service not found or ros is shutting down
-            raise FailedToStartRappsException("%s" % str(e))
+            self._start_rapp_thread_return = FailedToStartRappsException("%s" % str(e))
 
     def _stop(self, gateway_name):
         if self._resource == None:
@@ -197,3 +210,4 @@ class ConcertClient(object):
             rospy.logwarn("Scheduler : could not stop app on '%s' [%s]" % (self.name, str(e)))
             return False
         return True
+
