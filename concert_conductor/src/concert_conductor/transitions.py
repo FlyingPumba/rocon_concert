@@ -59,6 +59,19 @@ class TransitionToGone(object):
         """
         self.concert_client.msg.conn_stats.gateway_available = False
 
+class GoneToPending(object):
+    """
+    Transition handler when moving from gone to pending state. It is a return of client which was gone.
+    A client may be been rebooted due to some hardware trouble, or recovered from network trouble.
+    It reverts changes of TransitionToGone    
+    """
+
+    def __init__(self, concert_client):
+        self.concert_client = concert_client
+
+    def __call__(self):
+        self.concert_client.msg.conn_stats.gateway_available = True
+
 
 class PendingToUninvited(object):
     """
@@ -126,6 +139,9 @@ StateTransitionTable = {
     (State.BLOCKING, State.GONE)      : TransitionToGone,
 
     (State.BAD, State.GONE)           : TransitionToGone,
+    (State.BAD, State.PENDING)        : Dummy,
+
+    (State.GONE, State.PENDING)       : GoneToPending,
 }
 """
 Table of valid transitions and their transition handlers.

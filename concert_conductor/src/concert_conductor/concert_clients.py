@@ -237,8 +237,8 @@ class ConcertClients(object):
         platform_info_service_name = '/' + concert_client.gateway_name.lower().replace(' ', '_') + '/' + 'platform_info'
         list_rapps_service_name = '/' + concert_client.gateway_name.lower().replace(' ', '_') + '/' + 'list_rapps'
         try:
-            rospy.wait_for_service(platform_info_service_name, 0.1)
-            rospy.wait_for_service(list_rapps_service_name, 0.1)
+            rospy.wait_for_service(platform_info_service_name, 5.0)
+            rospy.wait_for_service(list_rapps_service_name, 5.0)
         except rospy.ROSException:  # timeout
             if concert_client.time_since_last_state_change() > 10.0:
                 rospy.logwarn("Conductor : timed out waiting for client's platform_info and list_rapps topics to be pulled [%s]" % concert_client.concert_alias)
@@ -256,7 +256,7 @@ class ConcertClients(object):
             platform_info = platform_info_service().platform_info
             if platform_info.version != rocon_std_msgs.Strings.ROCON_VERSION:
                 rospy.logwarn("Conductor : concert client and conductor rocon versions do not match [%s][%s]" % (platform_info.version, rocon_std_msgs.Strings.ROCON_VERSION))
-                self._transition(concert_client, State.BAD)()
+                self._transition(concert_client, State.BLOCKING)()
                 self._local_gateway.request_pulls(remote_gateway.name, cancel=True)
                 return True
             available_rapps = list_rapps_service().available_rapps
@@ -278,6 +278,10 @@ class ConcertClients(object):
         # it disappeared
         if remote_gateway is None:
             self._transition(concert_client, State.GONE)()
+            return True
+
+        if concert_client.time_since_last_state_change() > 10.0:
+            self._transition(concert_client, State.PENDING)()
             return True
         return False
 
@@ -441,6 +445,13 @@ class ConcertClients(object):
         """
         if concert_client.time_since_last_state_change() > self._param['oblivion_timeout']:
             return True
+
+
+        # a client comes back from rebooting or network trouble 
+        if concert_client.time_since_last_state_change() > concert_client.time_since_last_seen():
+            self._transition(concert_client, State.PENDING)()
+            return True
+
         return False
 
     ##############################################################################
