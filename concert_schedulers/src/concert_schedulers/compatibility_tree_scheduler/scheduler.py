@@ -113,6 +113,12 @@ class CompatibilityTreeScheduler(object):
         new_clients = [client for client in invited_clients if client.gateway_name not in self._clients.keys()]
         # lost_clients: common.ConcertClient[]
         lost_clients = [client for client in self._clients.values() if client.gateway_name not in [c.gateway_name for c in invited_clients]]
+
+        for client_new_status in msg.missing_clients:
+            for client_current in self._clients.values():
+                if client_current.gateway_name == client_new_status.gateway_name:
+                    client_current.update_state(client_new_status)
+
         # work over the client list
         for client in new_clients:
             rospy.loginfo("Scheduler : new concert client [%s]" % client.name)
@@ -213,7 +219,7 @@ class CompatibilityTreeScheduler(object):
         ########################################
         # Sort the request sets
         ########################################
-        unallocated_clients = [client for client in self._clients.values() if not client.allocated]
+        unallocated_clients = [client for client in self._clients.values() if client.is_available()]
         new_replies = []
         pending_replies = []
         releasing_replies = []
@@ -247,7 +253,7 @@ class CompatibilityTreeScheduler(object):
                 break
             # add preemptible clients to the candidates
             if self._parameters['enable_preemptions']:
-                allocatable_clients = unallocated_clients + [client for client in self._clients.values() if (client.allocated and client.allocated_priority < request.priority)]
+                allocatable_clients = unallocated_clients + [client for client in self._clients.values() if (client.is_available() and client.allocated_priority < request.priority)]
             else:
                 allocatable_clients = unallocated_clients
             if not allocatable_clients:

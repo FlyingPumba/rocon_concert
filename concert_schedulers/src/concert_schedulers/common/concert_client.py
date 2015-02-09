@@ -19,6 +19,7 @@ import scheduler_msgs.msg as scheduler_msgs
 import unique_id
 import uuid
 import uuid_msgs.msg as uuid_msgs
+import concert_msgs.msg as concert_msgs
 
 from . import utils
 from .exceptions import FailedToStartRappsException, FailedToAllocateException
@@ -42,6 +43,7 @@ class ConcertClient(object):
             '_request_id',   # id (uuid hex string) of the request it is allocated to
             'allocated_priority',  # priority (int) of the request it is allocated to
             '_resource',     # scheduler_msgs.Resource it fulfills
+            'state',
         ]
 
     ##########################################################################
@@ -70,6 +72,18 @@ class ConcertClient(object):
         self.gateway_name = self.msg.gateway_name
         """The concert client's name on the gateway network (typically has postfixed uuid)"""
 
+        self.state = self.msg.state
+
+    def update_state(self, msg):
+        self.msg = msg
+        self.state = self.msg.state
+
+    def is_available(self):
+        if self.state == concert_msgs.ConcertClientState.AVAILABLE and not self.allocated: 
+            return True
+        else:
+            return False
+
     ##########################################################################
     # Convert
     ##########################################################################
@@ -84,6 +98,7 @@ class ConcertClient(object):
             #rval += "  Resource: %s" % self._resource
         else:
             rval += "  Allocated: no\n"
+        rval += "  State: %s\n"%self.state
         return rval
 
     def toMsg(self):
@@ -100,8 +115,10 @@ class ConcertClient(object):
         # TODO : scheduler_msgs.CurrentStatus.MISSING
         if self.allocated:
             msg.status = scheduler_msgs.CurrentStatus.ALLOCATED
-        else:
+        elif self.state == concert_msgs.ConcertClientState.AVAILABLE:
             msg.status = scheduler_msgs.CurrentStatus.AVAILABLE
+        else:
+            msg.status = scheduler_msgs.CurrentStatus.MISSING
         msg.owner = unique_id.toMsg(uuid.UUID(self._request_id)) if self._request_id else uuid_msgs.UniqueID()  # self._request_id is a hex string
         msg.rapps = [rapp.name for rapp in self.msg.rapps]
         return msg
