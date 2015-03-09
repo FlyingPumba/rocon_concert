@@ -28,6 +28,7 @@
 
   <!-- Interactions -->
   <arg name="enable_rosbridge"  default="false" doc="start rosbridge or not"/>
+  <arg name="enable_user_auth"  default="false" doc="user special authentication"/>
   <arg name="rosbridge_address" default="localhost" doc="rosbridge address for rocon_interactions"/>
   <arg name="rosbridge_port" default="9090" doc="rosbridge port for rocon_interactions"/>
   <arg name="webserver_address" default="localhost" doc="webserver address for webapps in rocon_interactions"/>
@@ -114,6 +115,7 @@
     <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch">
       <arg name="address"   value="$(arg rosbridge_address)"/>
       <arg name="port"   value="$(arg rosbridge_port)"/>
+      <arg name="enable_user_auth"   value="$(arg enable_user_auth)"/>
     </include>
   </group>
 </launch>
