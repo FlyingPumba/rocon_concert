@@ -32,6 +32,7 @@
 
   <!-- To handle web components -->
   <run_depend>rosbridge_server</run_depend>
+  <run_depend>web_video_server</run_depend>
   <!-- 
     Hardcode this dependency for now since we only test it on linux 
     Ideally, I wouldn't hardcode the zeroconf implementation though.

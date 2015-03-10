@@ -115,5 +115,6 @@
       <arg name="address"   value="$(arg rosbridge_address)"/>
       <arg name="port"   value="$(arg rosbridge_port)"/>
     </include>
+    <node pkg="web_video_server" type="web_video_server" name="web_video_server"/>
   </group>
 </launch>
