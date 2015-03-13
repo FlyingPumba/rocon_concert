@@ -37,6 +37,7 @@
       - simple                        : concert_schedulers/simple_scheduler.launch
    -->
   <arg name="scheduler_type" default="compatibility_tree" doc="available scheudlers : [preemptive_compatibility_tree, compatibility_tree, simple]"/>
+  <arg name="enable_authorization" default="false" doc="enable user authorization using rocon_authorization package"/>
 
   <group ns="concert">
     <!-- ****************************** Parameters ***************************** -->
@@ -74,6 +75,7 @@
       <param name="rosbridge_address" value="$(arg rosbridge_address)"/>
       <param name="rosbridge_port" value="$(arg rosbridge_port)"/>
       <param name="webserver_address" value="$(arg webserver_address)"/>
+      <param name="authorization" value="$(arg enable_authorization)"/>
     </node>
 
     <!-- ******************************** Hub ********************************** -->
