@@ -119,5 +119,9 @@
       <arg name="port"   value="$(arg rosbridge_port)"/>
       <arg name="enable_user_auth"   value="$(arg enable_user_auth)"/>
     </include>
+    <include file="$(find rosbridge_server)/launch/rosbridge_websocket_client.launch">
+      <arg name="webserver_uri"   value="$(arg webserver_address)"/> 
+    </include>
+    <node pkg="web_video_server" type="web_video_server" name="web_video_server"/>
   </group>
 </launch>
