@@ -13,6 +13,10 @@
   <arg name="gateway_network_interface" default="$(optenv GATEWAY_NETWORK_INTERFACE)" doc="If you have multiple network interfaces and want to lock it on one (e.g. 'eth0')"/>
   <arg name="gateway_unavailable_timeout" default="10" doc="how long before a concert client is flagged as missing when it drops off the wireless"/>
 
+  <!-- Web Proxy -->
+  <arg name="enable_proxy"   default="false"  doc="Connect to an Internet Proxy server" />
+  <arg name="proxy_uri"  if="$(arg enable_proxy)" doc="Full WebSockets URI for the Proxy server" />
+
   <!-- Zeroconf -->
   <arg name="disable_zeroconf"            default="false" doc="It is required process to configure both hub and gateway. Configures rocon_hub zeroconf param and gateway disable_conf param.(e.g docker does not support zeroconf properly"/>
   <arg name="hub_zeroconf"    if="$(arg disable_zeroconf)" value="false"/>
@@ -111,6 +115,9 @@
 
   <!-- ****************************** Rosbridge ******************************** -->
   <group if="$(arg enable_rosbridge)">
+    <include file="$(find rosbridge_server)/launch/rosbridge_websocket_client.launch" if="$(arg enable_proxy)">
+      <arg name="webserver_uri"   value="$(arg proxy_uri)"/>
+    </include>
     <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch">
       <arg name="address"   value="$(arg rosbridge_address)"/>
       <arg name="port"   value="$(arg rosbridge_port)"/>
