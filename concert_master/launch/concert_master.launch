@@ -1,10 +1,13 @@
 <launch>
   <!-- ******************************* Arguments ******************************* -->
+
   <!-- Concert -->
   <arg name="concert_name" default="Pirate Concert" doc="concert name"/>
   <arg name="concert_icon" default="rocon_icons/rocon.png" doc="concert icon path in resource pair. e.g)rocon_icons/rocon.png"/>
   <arg name="concert_description" default="Pirates in concert." doc="Describe concert"/>
   
+  <arg name="enable_debugging" default="false" doc="enable debugging tools"/>
+
   <!-- Gateways -->
   <arg name="hub_port" default="6380" doc="port for rocon hub redis"/>
   <arg name="hub_uri" default="http://localhost:6380" doc="gateway hub configuration"/>
@@ -44,7 +47,9 @@
   <arg name="scheduler_type" default="compatibility_tree" doc="available scheudlers : [preemptive_compatibility_tree, compatibility_tree, simple]"/>
   <arg name="enable_authorization" default="false" doc="enable user authorization using rocon_authorization package"/>
 
-  <node pkg="rqt_console" type="rqt_console" name="rqt_console"/>
+  <group="debugging tools" if="$(arg enable_debugging)">
+    <node pkg="rqt_console" type="rqt_console" name="rqt_console"/>
+  <group/>
   
   <group ns="concert">
     <!-- ****************************** Parameters ***************************** -->
@@ -81,6 +86,7 @@
     <node pkg="rocon_interactions" type="interactions_manager.py" name="interactions">
       <param name="rosbridge_address" value="$(arg rosbridge_address)"/>
       <param name="rosbridge_port" value="$(arg rosbridge_port)"/>
+      <param name="authorization" value="$(arg enable_authorization)"/>
       <param name="webserver_address" value="$(arg webserver_address)"/>
     </node>
 
