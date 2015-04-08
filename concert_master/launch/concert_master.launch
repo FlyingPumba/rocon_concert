@@ -16,7 +16,7 @@
 
   <!-- Web Proxy -->
   <arg name="enable_proxy"   default="false"  doc="Connect to an Internet Proxy server" />
-  <arg name="proxy_uri"  if="$(arg enable_proxy)" doc="Full WebSockets URI for the Proxy server" />
+  <arg name="proxy_uri" if="$(arg enable_proxy)" doc="Full WebSockets URI for the Proxy server" />
 
   <!-- Zeroconf -->
   <arg name="disable_zeroconf"            default="false" doc="It is required process to configure both hub and gateway. Configures rocon_hub zeroconf param and gateway disable_conf param.(e.g docker does not support zeroconf properly"/>
@@ -42,10 +42,12 @@
       - simple                        : concert_schedulers/simple_scheduler.launch
    -->
   <arg name="scheduler_type" default="compatibility_tree" doc="available scheudlers : [preemptive_compatibility_tree, compatibility_tree, simple]"/>
-  <arg name="enable_authentication" default="false" doc="user special authentication"/>
+  <arg name="authentication_methods" default="" doc="user special authentication"/>
   <arg name="enable_authorization" default="false" doc="enable user authorization using rocon_authorization package"/>
-  <arg name="secret_users_file" doc="location of the secret user file"/>
-  <arg name="users_roles" doc="users roles file location"/>
+  <arg name="enable_authentication" default="false" doc="enable user authentication "/>
+  <arg name="secret_users_file" default="" doc="location of the secret user file"/>
+  <arg name="users_roles" default="" doc="users roles file location"/>
+
 
   <group ns="concert">
     <!-- ****************************** Parameters ***************************** -->
@@ -124,20 +126,20 @@
     <group if="$(arg enable_proxy)">
       <include file="$(find rosbridge_server)/launch/rosbridge_websocket_client.launch" >
         <arg name="webserver_uri"   value="$(arg proxy_uri)"/>
-        <arg name="enable_authentication" value="$(arg enable_authentication)"/>
+        <arg name="authentication_methods" value="$(arg authentication_methods)"/>
       </include>
     </group>
     <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch">
       <arg name="address"   value="$(arg rosbridge_address)"/>
       <arg name="port"   value="$(arg rosbridge_port)"/>
-      <arg name="enable_authentication" value="$(arg enable_authentication)"/>
+      <arg name="authentication_methods" value="$(arg authentication_methods)"/>
     </include>
     <node pkg="web_video_server" type="web_video_server" name="web_video_server"/>
   </group>
 
   <!-- ******************** Authentication & Authorization *********************** -->
-  <node name="rosauth" pkg="rosauth" type="ros_mac_authentication" if="$(arg enable_authentication)">
-    <param name="/ros_mac_authentication/secret_file_users_location" value="$(arg secret_users_file)"/>
+  <node name="rosauth" pkg="rosauth" type="ros_userid_password_authentication" if="$(arg enable_authentication)">
+    <param name="/ros_userid_password_authentication/secret_file_users_location" value="$(arg secret_users_file)"/>
   </node>
   <node name="rocon_authorization" pkg="rocon_authorization" type="users_manager" if="$(arg enable_authorization)">
     <param name="users" value="$(arg users_roles)"/>
