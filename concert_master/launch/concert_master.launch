@@ -16,7 +16,7 @@
 
   <!-- Web Proxy -->
   <arg name="enable_proxy"   default="false"  doc="Connect to an Internet Proxy server" />
-  <arg name="proxy_uri" default="" if="$(arg enable_proxy)" doc="Full WebSockets URI for the Proxy server" />
+  <arg name="proxy_uri" if="$(arg enable_proxy)" doc="Full WebSockets URI for the Proxy server" />
 
   <!-- Zeroconf -->
   <arg name="disable_zeroconf"            default="false" doc="It is required process to configure both hub and gateway. Configures rocon_hub zeroconf param and gateway disable_conf param.(e.g docker does not support zeroconf properly"/>
