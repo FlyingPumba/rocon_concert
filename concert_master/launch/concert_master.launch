@@ -46,6 +46,8 @@
   <arg name="enable_authorization" default="false" doc="enable user authorization using rocon_authorization package"/>
   <arg name="secret_users_file" doc="location of the secret user file"/>
   <arg name="users_roles" doc="users roles file location"/>
+ 
+
 
   <group ns="concert">
     <!-- ****************************** Parameters ***************************** -->
@@ -119,6 +121,7 @@
     </group>
   </group>
 
+  <node name="rqt_console" pkg="rqt_console" type="rqt_console" />
   <!-- ****************************** Rosbridge ******************************** -->
   <group if="$(arg enable_rosbridge)">
     <group if="$(arg enable_proxy)">
