@@ -121,7 +121,6 @@
     </group>
   </group>
 
-  <node name="rqt_console" pkg="rqt_console" type="rqt_console" />
   <!-- ****************************** Rosbridge ******************************** -->
   <group if="$(arg enable_rosbridge)">
     <group if="$(arg enable_proxy)">
@@ -133,7 +132,6 @@
     <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch">
       <arg name="address"   value="$(arg rosbridge_address)"/>
       <arg name="port"   value="$(arg rosbridge_port)"/>
-      <arg name="authentication_methods" value="$(arg authentication_methods)"/>
     </include>
     <node pkg="web_video_server" type="web_video_server" name="web_video_server"/>
   </group>
