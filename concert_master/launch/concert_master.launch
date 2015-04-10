@@ -126,7 +126,7 @@
   <!-- ****************************** Rosbridge ******************************** -->
   <group if="$(arg enable_rosbridge)">
     <group if="$(arg enable_proxy)">
-      <include file="$(find rosbridge_server)/launch/rosbridge_websocket_client.launch" >
+      <include file="$(find rosbridge_server)/launch/rosbridge_websocket_connection.launch" >
         <arg name="web_video_server_address" value="$(arg web_video_server_address)" />
         <arg name="web_video_server_port" value="$(arg web_video_server_port)" />
         <arg name="proxy_uri" value="$(arg proxy_uri)"/>
