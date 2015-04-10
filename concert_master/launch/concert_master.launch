@@ -44,9 +44,9 @@
   <arg name="scheduler_type" default="compatibility_tree" doc="available scheudlers : [preemptive_compatibility_tree, compatibility_tree, simple]"/>
   <arg name="authentication_methods" default="" doc="user special authentication"/>
   <arg name="enable_authorization" default="false" doc="enable user authorization using rocon_authorization package"/>
+  <arg name="secret_users_file" doc="location of the secret user file"/>
+  <arg name="users_roles" doc="users roles file location"/>
   <arg name="enable_authentication" default="false" doc="enable user authentication "/>
-  <arg name="secret_users_file" default="" doc="location of the secret user file"/>
-  <arg name="users_roles" default="" doc="users roles file location"/>
 
 
   <group ns="concert">
@@ -132,7 +132,6 @@
     <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch">
       <arg name="address"   value="$(arg rosbridge_address)"/>
       <arg name="port"   value="$(arg rosbridge_port)"/>
-      <arg name="authentication_methods" value="$(arg authentication_methods)"/>
     </include>
     <node pkg="web_video_server" type="web_video_server" name="web_video_server"/>
   </group>
